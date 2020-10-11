@@ -1,24 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import TodoList from './components/TodoList';
+import AddTodo from './components/AddTodo';
 
-function App() {
+let todolists = [
+  {
+    id: 1,
+    title: 'Go to school'
+  },
+  {
+    id: 2,
+    title: 'Buy some food'
+  }
+]
+
+const addTodo = (todo) => {
+  todolists.push({id: 3, title: todo})
+  console.log(todolists);
+}
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        Todo
       </header>
+      <main>
+        <TodoList todos={todolists} />
+        <AddTodo onSubmit={addTodo}/>
+      </main>
     </div>
   );
 }

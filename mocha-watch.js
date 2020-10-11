@@ -3,7 +3,9 @@ const path = require('path')
 const yargs = require('yargs')
 const watch = require('node-watch')
 const dependencyTree = require('dependency-tree')
+const getPort = require('get-port')
 const glob = require('glob')
+const fs = require('fs')
 const Mocha = require('mocha')
 
 let watchFile = true
@@ -63,9 +65,11 @@ let changedFiles = []
 let timeout = null
 let trees = {}
 
-const testFilesGlob = './{src,__tests__,_mocha_}/**/*.spec.js'
-const testFilter = '.spec.js'
-const fileFilter = /\.js/
+const testFilesGlob = './{src,__tests__,_mocha_}/**/*.{spec,test}.js'
+const testFileExtensions = ['.spec.js', '.test.js']
+
+const watchDirs = ['./src', './__tests__']
+const watchFileFilter = /\.js/
 
 function buildDependencyTree(filename) {
 	return dependencyTree({
@@ -112,55 +116,54 @@ function unloadFiles() {
 }
 
 function startWatchFile() {
-	watch(
-		['./src', './__tests__'],
-		{ recursive: true, filter: fileFilter },
-		function (evt, name) {
-			changedFiles.push(name)
+	watch(watchDirs, { recursive: true, filter: watchFileFilter }, function (
+		evt,
+		name
+	) {
+		changedFiles.push(name)
 
-			if (timeout) {
-				clearTimeout(timeout)
-			}
-			timeout = setTimeout(() => {
-				try {
-					// build test list
-					let tests = []
-					for (let file of changedFiles) {
-						if (file.indexOf(testFilter) >= 0) {
-							tests.push(file)
-						} else {
-							// find it in dependency tree
-							for (let f of Object.getOwnPropertyNames(trees)) {
-								if (trees[f].some((n) => n.indexOf(file) >= 0)) {
-									tests.push(f)
-								}
+		if (timeout) {
+			clearTimeout(timeout)
+		}
+		timeout = setTimeout(() => {
+			try {
+				// build test list
+				let tests = []
+				for (let file of changedFiles) {
+					if (testFileExtensions.some((ext) => file.indexOf(ext) >= 0)) {
+						tests.push(file)
+					} else {
+						// find it in dependency tree
+						for (let f of Object.getOwnPropertyNames(trees)) {
+							if (trees[f].some((n) => n.indexOf(file) >= 0)) {
+								tests.push(f)
 							}
 						}
 					}
-
-					changedFiles = []
-
-					if (tests.length) {
-						clearConsole()
-						console.debug(`Running tests in ${tests.length} changed files`)
-						mochaRun((mocha) => {
-							for (const test of tests) {
-								mocha.addFile(test)
-							}
-						})
-					}
-				} catch (ex) {
-					console.error(ex)
-				} finally {
-					scan()
 				}
-			}, 100)
-		}
-	)
+
+				changedFiles = []
+
+				if (tests.length) {
+					clearConsole()
+					console.debug(`Running tests in ${tests.length} changed files`)
+					mochaRun((mocha) => {
+						for (const test of tests) {
+							mocha.addFile(test)
+						}
+					})
+				}
+			} catch (ex) {
+				console.error(ex)
+			} finally {
+				scan()
+			}
+		}, 100)
+	})
 }
 
-function startNetServer() {
-	const port = 40123
+async function startNetServer() {
+	const port = await getPort({ port: getPort.makeRange(40123, 40200) })
 	const server = net.createServer()
 
 	server.on('connection', (socket) => {
@@ -221,6 +224,15 @@ function startNetServer() {
 
 	server.listen(port, () => {
 		console.log(`mocha-watch.js is listening on port: ${port}`)
+		fs.writeFile(
+			path.join(__dirname, 'mocha-watch-port.txt'),
+			`${port}`,
+			(err) => {
+				if (err) {
+					console.error(err)
+				}
+			}
+		)
 	})
 }
 

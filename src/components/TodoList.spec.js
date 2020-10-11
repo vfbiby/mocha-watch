@@ -20,8 +20,10 @@ describe("TodoList", function(){
 
     const wrapper = shallow(<TodoList todos={todolists}/>)
 
-    expect(wrapper.find('li').length).toBe(2)
-    expect(wrapper.find('li').at(0).text()).toBe('Go to school')
-    expect(wrapper.find('li').at(1).text()).toBe('Buy some food')
+    expect(2).to.equal(2)
+
+    expect(wrapper.find('li').length).to.equal(2)
+    expect(wrapper.find('li').at(0).text()).to.equal('Go to school')
+    expect(wrapper.find('li').at(1).text()).to.equal('Buy some food')
   })
 })

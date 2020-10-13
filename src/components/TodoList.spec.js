@@ -1,9 +1,6 @@
 import React from 'react';
-//import Enzyme, { shallow } from "enzyme";
-//import Adapter from 'enzyme-adapter-react-16';
 import TodoList from "./TodoList";
 
-//Enzyme.configure({ adapter: new Adapter() });
 
 describe("TodoList", function(){
   it("can render todo list", function(){

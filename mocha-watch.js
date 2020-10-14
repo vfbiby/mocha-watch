@@ -59,6 +59,9 @@ function mochaRun(prepareTests) {
 		})
 		.then(unloadFiles)
 		.then(scan)
+		.then(() => {
+			newMocha._previousRunner && newMocha._previousRunner.dispose()
+		})
 }
 
 let changedFiles = []
@@ -167,6 +170,7 @@ async function startNetServer() {
 	const server = net.createServer()
 
 	server.on('connection', (socket) => {
+		// socket.write('HELLO')
 		socket.on('data', (d) => {
 			socket.write('OK')
 			clearConsole()
@@ -225,8 +229,8 @@ async function startNetServer() {
 	server.listen(port, () => {
 		console.log(`mocha-watch.js is listening on port: ${port}`)
 		fs.writeFile(
-			path.join(__dirname, 'mocha-watch-port.txt'),
-			`${port}`,
+			path.join(__dirname, '.mochaserverrc.js'),
+			`{"port": ${port}}`,
 			(err) => {
 				if (err) {
 					console.error(err)

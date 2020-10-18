@@ -175,7 +175,7 @@ async function startNetServer() {
 			socket.write('OK')
 			clearConsole()
 			const input = d.toString()
-			console.debug(input)
+			//console.debug(input)
 			let cmd
 			try {
 				cmd = JSON.parse(input)

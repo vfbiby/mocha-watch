@@ -8,9 +8,11 @@
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "redux": "^4.0.5"
   },
   "scripts": {
     "cy": "cypress open",
@@ -58,6 +60,7 @@
     "mock-css-modules": "^2.0.0",
     "node-watch": "^0.7.0",
     "react-hot-loader": "^4.13.0",
+    "redux-mock-store": "^1.5.4",
     "sinon": "^9.2.0",
     "sinon-chai": "^3.5.0"
   }

@@ -21,7 +21,7 @@ let AddTodo = ({dispatch}) => {
           type="text"
           ref={node=> { input = node } }
         />
-        <input type="submit" value="submit"/>
+        <input type="submit" value="Add Todo"/>
       </form>
     </div>
   )

@@ -2,8 +2,7 @@ describe("Todo List", function(){
   it("can list all todos", function(){
     cy.visit('http://localhost:3000')
     cy.contains('Todo')
-    cy.contains('Go to school')
-    cy.contains('Buy some food')
+    cy.contains('Use Redux')
   })
 
   it("can add a todo", function(){

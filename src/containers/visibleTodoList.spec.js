@@ -15,11 +15,11 @@ describe('Visible TodoList connected component', () => {
     let initailState = [
       {
         id: 1,
-        title: 'Go to school'
+        text: 'Go to school'
       },
       {
         id: 2,
-        title: 'Buy some food'
+        text: 'Buy some food'
       }
     ]
     //store = mockStore(initailState)

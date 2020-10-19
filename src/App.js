@@ -1,34 +1,25 @@
 import React from 'react';
-import TodoList from './components/TodoList';
+import VisibleTodoList from "./containers/VisibleTodoList";
 import AddTodo from './components/AddTodo';
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import todos from "./reducers/todos";
 
-let todolists = [
-  {
-    id: 1,
-    title: 'Go to school'
-  },
-  {
-    id: 2,
-    title: 'Buy some food'
-  }
-]
-
-const addTodo = (todo) => {
-  todolists.push({id: 3, title: todo})
-  console.log(todolists);
-}
+let store = createStore(todos)
 
 const App = () => {
   return (
-    <div className="App">
-      <header>
-        Todo
-      </header>
-      <main>
-        <TodoList todos={todolists} />
-        <AddTodo onSubmit={addTodo}/>
-      </main>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <header>
+          Todo
+        </header>
+        <main>
+          <VisibleTodoList />
+          <AddTodo/>
+        </main>
+      </div>
+    </Provider>
   );
 }
 

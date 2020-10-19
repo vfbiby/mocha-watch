@@ -1,27 +1,30 @@
-import React, {createRef} from 'react';
+import React from 'react';
+import { addTodo } from "../actions/index";
+import { connect } from "react-redux";
 
-class AddTodo extends React.Component{
-  constructor(props){
-    super(props)
+let AddTodo = ({dispatch}) => {
+  let input
 
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.textInput = createRef()
-  }
-
-  handleSubmit(event){
-    this.props.onSubmit(this.textInput.current.value)
-    this.textInput.current.value = ''
-    event.preventDefault()
-  }
-
-  render(){    
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <input ref={this.textInput} name="todo" type="text"/>
-        <input type="submit" value="Add Todo"/>
+  return (
+    <div>
+      <form 
+        onSubmit={e => {
+          e.preventDefault()
+          if(!input.value.trim()){
+            return
+          }
+          dispatch(addTodo(input.value))
+          input.value = ''
+        }}
+      >
+        <input
+          type="text"
+          ref={node=> { input = node } }
+        />
+        <input type="submit" value="submit"/>
       </form>
-    )
-  }
+    </div>
+  )
 }
 
-export default AddTodo
+export default connect()(AddTodo)

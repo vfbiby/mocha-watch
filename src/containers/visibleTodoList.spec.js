@@ -23,9 +23,9 @@ describe('Visible TodoList connected component', () => {
         text: 'Buy some food'
       }
     ]
-    //store = mockStore(initailState)
 
-    store = createStore(()=>{ return todos(initailState) })
+    store = mockStore(initailState)
+    //store = createStore(()=>{ return todos(initailState) })
     
     visibleTodoList = mount(
       <Provider store={store}>
@@ -35,8 +35,6 @@ describe('Visible TodoList connected component', () => {
   })
 
   it("should render with given state from Redux store", function(){
-    //let spy = sinon.spy()
-
     expect(visibleTodoList.contains('Go to school')).to.equal(true)
     expect(visibleTodoList.find('li').length).to.equal(2)
     expect(visibleTodoList.find('li').at(0).text()).to.equal('Go to school')

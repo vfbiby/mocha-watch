@@ -6,13 +6,8 @@ import { Provider } from "react-redux";
 import todos from "../reducers/todos";
 
 describe('Add Todo', function() {
-  let store
-
-  beforeEach(()=>{
-    store = createStore(todos)
-  })
-
   it("can render a input and search button", function(){
+    let store = createStore(todos)
     let dispatch = sinon.spy()
     store.dispatch = dispatch
 

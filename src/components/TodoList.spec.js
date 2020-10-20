@@ -15,7 +15,7 @@ describe("TodoList", function(){
       }
     ]
 
-    const wrapper = shallow(<TodoList todos={todos}/>)
+    const wrapper = mount(<TodoList todos={todos}/>)
 
     expect(wrapper.find('li').length).to.equal(2)
     expect(wrapper.find('li').at(0).text()).to.equal('Go to school')

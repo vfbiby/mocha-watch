@@ -10,12 +10,12 @@ describe('Reducer Test', function() {
     const expectedState = [
       {
         text: 'Run the tests',
-        complete: false,
+        completed: false,
         id: 0
       },
       {
         text: 'Go to street',
-        complete: false,
+        completed: false,
         id: 1
       }
     ]
@@ -24,7 +24,7 @@ describe('Reducer Test', function() {
       reducer(
         [{ 
           text: 'Run the tests',
-          complete: false,
+          completed: false,
           id: 0
         }],
         { 
@@ -39,7 +39,7 @@ describe('Reducer Test', function() {
     const expectedState = [{
       id: 0,
       text: 'Go to street',
-      complete: false
+      completed: false
     }]
     expect(reducer([], {type: 'ADD_TODO', text: 'Go to street'})).to.deep.equal(expectedState)
   })

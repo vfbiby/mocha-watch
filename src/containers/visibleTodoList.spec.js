@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import {mount} from 'enzyme';
 import { createStore } from "redux";
+import todos from '../reducers/todos';
 
 const mockStore = configureStore([])
 
@@ -24,7 +25,7 @@ describe('Visible TodoList connected component', () => {
     ]
     //store = mockStore(initailState)
 
-    store = createStore(()=>{ return initailState })
+    store = createStore(()=>{ return todos(initailState) })
     
     visibleTodoList = mount(
       <Provider store={store}>

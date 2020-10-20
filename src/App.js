@@ -1,6 +1,6 @@
 import React from 'react';
 import VisibleTodoList from "./containers/VisibleTodoList";
-import AddTodo from './components/AddTodo';
+import AddTodo from './containers/AddTodo';
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import todos from "./reducers/todos";

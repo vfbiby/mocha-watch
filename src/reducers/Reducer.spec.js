@@ -2,13 +2,8 @@ import reducer from "./todos";
 
 describe('Reducer Test', function() {
   it("should render the initial state", function(){
-    const expectedState = [
-      {
-        text: 'Use Redux',
-        id: 0
-      }
-    ]
-    expect(reducer(undefined, {})).to.deep.equal(expectedState)
+    const initialState = []
+    expect(reducer(undefined, {})).to.deep.equal(initialState)
   })
 
   it("should handle ADD_TODO", function(){
@@ -26,4 +21,5 @@ describe('Reducer Test', function() {
 
     expect(reducer([], action)).to.deep.equal(expectedState)
   })
+
 });

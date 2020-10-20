@@ -19,6 +19,8 @@ let AddTodo = ({dispatch}) => {
       >
         <input
           type="text"
+          key="todo"
+          placeholder="todo"
           ref={node=> { input = node } }
         />
         <input type="submit" value="Add Todo"/>

@@ -34,9 +34,11 @@ describe('Todo spec', () => {
       id: 0
     }
 
-    const onClick = sinon.spy()
-    let wrapper = shallow(<Todo {...todo} onClick={onClick}/>)
+    const onTodoClick = sinon.spy()
+    let wrapper = shallow(<Todo {...todo} onClick={()=>{onTodoClick(todo.id)}}/>)
     wrapper.find('li').simulate('click')
-    expect(onClick).to.have.been.callCount(1)
+
+    expect(onTodoClick).to.have.been.callCount(1)
+    expect(onTodoClick).to.have.been.calledWith(0)
   })
 });

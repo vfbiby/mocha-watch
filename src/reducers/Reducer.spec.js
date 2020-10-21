@@ -1,4 +1,5 @@
 import reducer from "./todos";
+import { toggleTodo } from "../actions";
 
 describe('Reducer Test', function() {
   it("should render the initial state", function(){
@@ -42,5 +43,26 @@ describe('Reducer Test', function() {
       completed: false
     }]
     expect(reducer([], {type: 'ADD_TODO', text: 'Go to street'})).to.deep.equal(expectedState)
+  })
+  
+  it("should handle TOGGLE_TODO action", function(){
+    const expectedState = [
+      {
+        text: 'Run the tests',
+        completed: true,
+        id: 0
+      }
+    ]
+
+    expect(
+      reducer(
+        [{ 
+          text: 'Run the tests',
+          completed: false,
+          id: 0
+        }],
+        toggleTodo(0)
+      )
+    ).to.deep.equal(expectedState)
   })
 });

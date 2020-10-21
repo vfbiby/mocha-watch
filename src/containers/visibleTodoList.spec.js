@@ -8,7 +8,7 @@ import todos from '../reducers/todos';
 
 const mockStore = configureStore([])
 
-describe('Visible TodoList connected component', () => {
+describe('Visible TodoList', () => {
   let store
   let visibleTodoList
 
@@ -25,6 +25,7 @@ describe('Visible TodoList connected component', () => {
     ]
 
     store = mockStore(initailState)
+    store.dispatch = sinon.spy()
     //store = createStore(()=>{ return todos(initailState) })
     
     visibleTodoList = mount(
@@ -39,5 +40,11 @@ describe('Visible TodoList connected component', () => {
     expect(visibleTodoList.find('li').length).to.equal(2)
     expect(visibleTodoList.find('li').at(0).text()).to.equal('Go to school')
     expect(visibleTodoList.find('li').at(1).text()).to.equal('Buy some food')
+  })
+
+  it("should dispath an action when todo click", function(){
+    visibleTodoList.find('li').at(1).simulate('click')
+    expect(store.dispatch).to.have.been.callCount(1)
+    expect(store.dispatch).to.have.been.calledWith({ id: 2, type: "TOGGLE_TODO" })
   })
 });

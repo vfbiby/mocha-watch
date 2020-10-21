@@ -22,7 +22,7 @@ describe('Todo spec', () => {
       id: 0
     }
 
-    let wrapper = shallow(<Todo {...todo} />)
+    let wrapper = mount(<Todo {...todo} />)
 
     expect(wrapper.find('li').prop('style')).to.deep.equal({ 'textDecoration': 'line-through' })
   })

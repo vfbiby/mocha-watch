@@ -1,4 +1,4 @@
-import { addTodo, toggleTodo } from "./index";
+import { addTodo, toggleTodo, setVisibilityFilter } from "./index";
 
 describe('Actions', function() {
   it("should have addTodo action to add todos", function(){
@@ -18,5 +18,14 @@ describe('Actions', function() {
     }
 
     expect(toggleTodo(0)).to.deep.equal(expectedAction)
+  })
+
+  it("shoud have a setVisibilityFilter action creater", function(){
+    const expectedAction = {
+      type: 'SET_VISIBILITY_FILTER',
+      filter: 'All'
+    }
+
+    expect(setVisibilityFilter('All')).to.deep.equal(expectedAction)
   })
 });

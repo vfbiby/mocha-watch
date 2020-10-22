@@ -4,6 +4,7 @@ import AddTodo from './containers/AddTodo';
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import todos from "./reducers/todos";
+import Footer from "./containers/Footer";
 
 let store = createStore(todos)
 
@@ -15,8 +16,9 @@ const App = () => {
           Todo
         </header>
         <main>
+          <AddTodo />
           <VisibleTodoList />
-          <AddTodo/>
+          <Footer />
         </main>
       </div>
     </Provider>

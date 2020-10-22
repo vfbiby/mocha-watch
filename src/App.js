@@ -4,7 +4,7 @@ import AddTodo from './containers/AddTodo';
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import todos from "./reducers/todos";
-import Footer from "./containers/Footer";
+import Footer from "./components/Footer";
 
 let store = createStore(todos)
 

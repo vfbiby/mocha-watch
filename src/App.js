@@ -12,14 +12,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <div className="App">
-        <header>
-          Todo
-        </header>
-        <main>
-          <AddTodo />
-          <VisibleTodoList />
-          <Footer />
-        </main>
+        <AddTodo />
+        <VisibleTodoList />
+        <Footer />
       </div>
     </Provider>
   );

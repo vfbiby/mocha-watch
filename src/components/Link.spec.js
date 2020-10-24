@@ -13,7 +13,7 @@ describe('Link Spec', () => {
     const wrapper = shallow(<Link active={false}>All</Link>)
 
     expect(wrapper.findWhere(n => n.text() == 'All').parent().type()).to.equal('a')
-    expect(wrapper.findWhere(n => n.text() == 'All').parent().prop('href')).to.equal('#')
+    expect(wrapper.findWhere(n => n.text() == 'All').parent().prop('href')).to.equal('')
   })
 
   it("should call a function when a link was clicked", function(){
@@ -21,7 +21,7 @@ describe('Link Spec', () => {
 
     const wrapper = shallow(<Link active={false} onClick={ ()=>{onLinkClick()} }>Active</Link>)
 
-    wrapper.findWhere(n => n.text() == 'Active').parent().simulate('click')
+    wrapper.findWhere(n => n.text() == 'Active').parent().simulate('click', { preventDefault: () => {} })
     expect(onLinkClick).to.have.been.callCount(1)
   })
 });

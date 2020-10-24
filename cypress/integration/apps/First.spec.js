@@ -1,3 +1,4 @@
+
 describe("Todo List", function(){
   it("can list all todos", function(){
     cy.visit('http://localhost:3000')
@@ -26,7 +27,8 @@ describe("Todo List", function(){
     cy.get('input[type=text]').type('Go to school')
     cy.contains('Add Todo').click()
     cy.contains('Washing my clothes').click()
-    cy.contains('completed').click()
-    cy.get('li').should('have.length', 1)
+    cy.contains('Completed').click()
+    cy.contains('Go to school').should('not.exist')
+    cy.contains('Washing my clothes').should('exist')
   })
 })

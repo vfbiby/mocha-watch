@@ -1,5 +1,5 @@
 import React from 'react';
-import VisibleTodoList from './VisibleTodoList'
+import VisibleTodoList, { getVisibleTodos } from './VisibleTodoList'
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import {mount} from 'enzyme';
@@ -11,24 +11,32 @@ const mockStore = configureStore([])
 describe('Visible TodoList', () => {
   let store
   let visibleTodoList
+  let initialState
 
   beforeEach(() => {
-    let initailState = {
+    initialState = {
       todos: [
         {
           id: 1,
-          text: 'Go to school'
+          text: 'Go to school',
+          completed: false
         },
         {
           id: 2,
-          text: 'Buy some food'
+          text: 'Buy some food',
+          completed: false
+        },
+        {
+          id: 3,
+          text: 'Finish screencast',
+          completed: true
         }
       ],
       visibilityFilter: 'SHOW_ALL'
     }
 
-    store = mockStore(initailState)
-    //store = createStore(todoApp, initailState)
+    store = mockStore(initialState)
+    //store = createStore(todoApp, initialState)
     store.dispatch = sinon.spy()
     
     visibleTodoList = mount(
@@ -40,7 +48,7 @@ describe('Visible TodoList', () => {
 
   it("should render with given state from Redux store", function(){
     expect(visibleTodoList.contains('Go to school')).to.equal(true)
-    expect(visibleTodoList.find('li').length).to.equal(2)
+    expect(visibleTodoList.find('li').length).to.equal(3)
     expect(visibleTodoList.find('li').at(0).text()).to.equal('Go to school')
     expect(visibleTodoList.find('li').at(1).text()).to.equal('Buy some food')
   })
@@ -49,5 +57,10 @@ describe('Visible TodoList', () => {
     visibleTodoList.find('li').at(1).simulate('click')
     expect(store.dispatch).to.have.been.callCount(1)
     expect(store.dispatch).to.have.been.calledWith({ id: 2, type: "TOGGLE_TODO" })
+  })
+
+  it("should filter todos by complete status", function(){
+    expect(getVisibleTodos(initialState.todos, 'SHOW_ACTIVE').length).to.equal(2)
+    expect(getVisibleTodos(initialState.todos, 'SHOW_COMPLETED').length).to.equal(1)
   })
 });

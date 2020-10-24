@@ -3,7 +3,7 @@ import { render, cleanup, fireEvent, screen } from '@testing-library/react';
 import App from './App';
 import expect from "expect";
 
-describe('App Component', function() {
+describe('App Container', function() {
   afterEach(cleanup)
 
   it('should list todos', () => {
@@ -36,8 +36,8 @@ describe('App Component', function() {
     fireEvent.change(inputNode, {target: {value: 'Finish screencast'}})
     fireEvent.click(screen.getByText(/Add Todo/i))
     fireEvent.click(screen.getByText(/go to school/i))
-    fireEvent.click(screen.getByText(/Active/i))
+    fireEvent.click(screen.getByText(/Completed/i))
 
-    expect(screen.getByText(/go to school/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/go to school/i)).toBeInTheDocument()
   })
 })

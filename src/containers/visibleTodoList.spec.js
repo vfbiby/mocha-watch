@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import {mount} from 'enzyme';
 import { createStore } from "redux";
-import todos from '../reducers/todos';
+import todoApp from '../reducers';
 
 const mockStore = configureStore([])
 
@@ -13,20 +13,23 @@ describe('Visible TodoList', () => {
   let visibleTodoList
 
   beforeEach(() => {
-    let initailState = [
-      {
-        id: 1,
-        text: 'Go to school'
-      },
-      {
-        id: 2,
-        text: 'Buy some food'
-      }
-    ]
+    let initailState = {
+      todos: [
+        {
+          id: 1,
+          text: 'Go to school'
+        },
+        {
+          id: 2,
+          text: 'Buy some food'
+        }
+      ],
+      visibilityFilter: 'SHOW_ALL'
+    }
 
     store = mockStore(initailState)
+    //store = createStore(todoApp, initailState)
     store.dispatch = sinon.spy()
-    //store = createStore(()=>{ return todos(initailState) })
     
     visibleTodoList = mount(
       <Provider store={store}>

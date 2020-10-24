@@ -23,9 +23,9 @@ describe('Actions', function() {
   it("shoud have a setVisibilityFilter action creater", function(){
     const expectedAction = {
       type: 'SET_VISIBILITY_FILTER',
-      filter: 'All'
+      filter: 'SHOW_All'
     }
 
-    expect(setVisibilityFilter('All')).to.deep.equal(expectedAction)
+    expect(setVisibilityFilter('SHOW_All')).to.deep.equal(expectedAction)
   })
 });

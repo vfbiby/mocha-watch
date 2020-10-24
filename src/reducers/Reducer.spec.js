@@ -1,5 +1,8 @@
+import visibilityFilter from "./visibilityFilter";
+import { toggleTodo, setVisibilityFilter } from "../actions";
 import reducer from "./todos";
-import { toggleTodo } from "../actions";
+import todoApp from ".";
+import { createStore } from "redux";
 
 describe('Reducer Test', function() {
   it("should render the initial state", function(){
@@ -64,5 +67,25 @@ describe('Reducer Test', function() {
         toggleTodo(0)
       )
     ).to.deep.equal(expectedState)
+  })
+
+  it("should handle SET_VISIBILITY_FILTER", function(){
+    const expectedState = 'SHOW_ACTIVE'
+
+    expect(
+      visibilityFilter(
+        'SHOW_ALL',
+        {type: 'SET_VISIBILITY_FILTER', filter: 'SHOW_ACTIVE'}
+      )
+    ).to.deep.equal(expectedState)
+  })
+
+  it("should return SHOW_ALL when action is not provide", function(){
+    expect(
+      visibilityFilter(
+        undefined,
+        {}
+      )
+    ).to.deep.equal('SHOW_ALL')
   })
 });

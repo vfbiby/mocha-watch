@@ -4,7 +4,7 @@ import {toggleTodo} from '../actions'
 
 const mapStateToProps = (state) => {
   return {
-    todos: state
+    todos: state.todos
   }
 }
 

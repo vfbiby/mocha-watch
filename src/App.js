@@ -3,10 +3,10 @@ import VisibleTodoList from "./containers/VisibleTodoList";
 import AddTodo from './containers/AddTodo';
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import todos from "./reducers/todos";
 import Footer from "./components/Footer";
+import todoApp from "./reducers";
 
-let store = createStore(todos)
+let store = createStore(todoApp)
 
 const App = () => {
   return (

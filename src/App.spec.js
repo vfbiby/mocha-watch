@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, cleanup, fireEvent, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 
 describe('App Container', function() {
@@ -9,7 +10,8 @@ describe('App Container', function() {
     render(<App />);
 
     const inputNode = screen.getByRole('textbox')
-    fireEvent.change(inputNode, {target: {value: 'Go Bed'}})
+    // fireEvent.change(inputNode, {target: {value: 'Go Bed'}})
+    userEvent.type(inputNode, 'Go Bed')
     fireEvent.click(screen.getByText(/Add Todo/i))
 
     expect(screen.getByText('Go Bed')).toBeInTheDocument()

@@ -16,11 +16,11 @@ jestExpect.extend(matchers)
 
 function combineJestAndChaiExpect() {
   // Make sure chai and jest ".not" play nice together
-  const originalNot = Object.getOwnPropertyDescriptor(chai.Assertion.prototype, 'not').get;
+  const chaiNot = Object.getOwnPropertyDescriptor(chai.Assertion.prototype, 'not').get;
   Object.defineProperty(chai.Assertion.prototype, 'not', {
     get() {
-      Object.assign(this, this.assignedNot);
-      return originalNot.apply(this);
+      const combinedNot = Object.assign({}, chaiNot.apply(this), this.assignedNot);
+      return combinedNot;
     },
     set(newNot) {
       this.assignedNot = newNot;
@@ -30,9 +30,9 @@ function combineJestAndChaiExpect() {
 
   // Combine both jest and chai matchers on expect
   global.expect = (actual) => {
-    const originalMatchers = jestExpect(actual);
+    const jestMatchers = jestExpect(actual);
     const chaiMatchers = chai.expect(actual);
-    const combinedMatchers = Object.assign(chaiMatchers, originalMatchers);
+    const combinedMatchers = Object.assign(chaiMatchers, jestMatchers);
     return combinedMatchers;
   };
 }

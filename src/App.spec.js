@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, cleanup, fireEvent, screen } from '@testing-library/react';
 import App from './App';
-import expect from "expect";
 
 describe('App Container', function() {
   afterEach(cleanup)

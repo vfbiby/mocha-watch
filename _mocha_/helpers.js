@@ -14,19 +14,29 @@ mockCssModules.register(['.less'])
 chai.use(sinonChai)
 jestExpect.extend(matchers)
 
-global.expect = function expect(params) {
-  const _chaiExpect = chai.expect(params)
-  const _jestExpect = jestExpect(params)
-  return new Proxy(_chaiExpect, {
-    get: function (target, prop, receiver) {
-      try {
-        return _chaiExpect[prop]
-      } catch (error) {
-        return _jestExpect[prop]
-      }
-    }
-  })
+function combineJestAndChaiExpect() {
+  // Make sure chai and jest ".not" play nice together
+  const originalNot = Object.getOwnPropertyDescriptor(chai.Assertion.prototype, 'not').get;
+  Object.defineProperty(chai.Assertion.prototype, 'not', {
+    get() {
+      Object.assign(this, this.assignedNot);
+      return originalNot.apply(this);
+    },
+    set(newNot) {
+      this.assignedNot = newNot;
+      return newNot;
+    },
+  });
+
+  // Combine both jest and chai matchers on expect
+  global.expect = (actual) => {
+    const originalMatchers = jestExpect(actual);
+    const chaiMatchers = chai.expect(actual);
+    const combinedMatchers = Object.assign(chaiMatchers, originalMatchers);
+    return combinedMatchers;
+  };
 }
+combineJestAndChaiExpect()
 
 global.sinon = sinon
 

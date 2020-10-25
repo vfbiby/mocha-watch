@@ -119,7 +119,8 @@ function unloadFiles() {
 }
 
 function startWatchFile() {
-	watch(watchDirs, { recursive: true, filter: watchFileFilter }, function (
+	const existingDirs = watchDirs.filter(dir => fs.existsSync(dir))
+	watch(existingDirs, { recursive: true, filter: watchFileFilter }, function (
 		evt,
 		name
 	) {

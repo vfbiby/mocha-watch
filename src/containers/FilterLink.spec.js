@@ -5,7 +5,7 @@ import FilterLink from "./FilterLink";
 
 const mockStore = configureStore([])
 
-describe('FilterLink Spec', () => {
+describe('FilterLink Container', () => {
 
   afterEach(cleanup)
 
@@ -17,7 +17,8 @@ describe('FilterLink Spec', () => {
       </Provider>
     )
 
-    fireEvent.click(screen.getByText('Completed'))
+    //fireEvent.click(screen.getByText('Completed'))
+    fireEvent.click(screen.getByRole('link', {name: /Completed/i}))
 
     expect(store.getActions()[0]).to.deep.equal(
       {type: 'SET_VISIBILITY_FILTER', filter: 'SHOW_COMPLETED'}

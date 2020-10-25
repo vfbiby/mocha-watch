@@ -12,7 +12,7 @@ describe('App Container', function() {
     const inputNode = screen.getByRole('textbox')
     // fireEvent.change(inputNode, {target: {value: 'Go Bed'}})
     userEvent.type(inputNode, 'Go Bed')
-    fireEvent.click(screen.getByText(/Add Todo/i))
+    userEvent.click(screen.getByText(/Add Todo/i))
 
     expect(screen.getByText('Go Bed')).toBeInTheDocument()
   })
@@ -23,7 +23,7 @@ describe('App Container', function() {
     //const inputNode = screen.getByRole('textbox')
     //fireEvent.change(inputNode, {target: {value: 'Go Bed'}})
     //fireEvent.click(screen.getByText(/Add Todo/i))
-    fireEvent.click(getByText(/Go Bed/i))
+    userEvent.click(getByText(/Go Bed/i))
 
     expect(getByText(/Go Bed/i).getAttribute('style')).toEqual('text-decoration: line-through;')
   })

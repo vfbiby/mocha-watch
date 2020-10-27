@@ -50,8 +50,8 @@ describe('App Container', function() {
     fireEvent.change(inputNode, {target: {value: 'Finish screencast'}})
     fireEvent.click(screen.getByText(/Add Todo/i))
     fireEvent.click(screen.getByText(/go to school/i))
-    fireEvent.click(screen.getByText(/Completed/i))
+    fireEvent.click(screen.getByText(/Active/i))
 
-    expect(screen.getByText(/go to school/i)).toBeInTheDocument()
+    expect(screen.queryByText(/go to school/i)).not.toBeInTheDocument()
   })
 })

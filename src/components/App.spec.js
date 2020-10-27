@@ -5,17 +5,20 @@ import App from './App';
 import { createStore } from "redux";
 import todoApp from "../reducers";
 import { Provider } from "react-redux";
-import { MemoryRouter as Router, Route } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 describe('App Container', function() {
 
+  let history;
 
   beforeEach(() => {
-  let store = createStore(todoApp);
+    let store = createStore(todoApp);
+    history = createMemoryHistory();
 
     render(
       <Provider store={store}>
-        <Router>
+        <Router history={history}>
           <Route path="/" component={App} />
         </Router>
       </Provider>
@@ -56,5 +59,6 @@ describe('App Container', function() {
     fireEvent.click(screen.getByText(/Active/i))
 
     expect(screen.queryByText(/go to school/i)).not.toBeInTheDocument()
+    expect(history.location.pathname).toBe('/active')
   })
 })

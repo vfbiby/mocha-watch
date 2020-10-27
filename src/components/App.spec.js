@@ -5,6 +5,7 @@ import App from './App';
 import { createStore } from "redux";
 import todoApp from "../reducers";
 import { Provider } from "react-redux";
+import { MemoryRouter as Router, Route } from "react-router-dom";
 
 describe('App Container', function() {
 
@@ -14,7 +15,9 @@ describe('App Container', function() {
 
     render(
       <Provider store={store}>
-        <App />
+        <Router>
+          <Route path="/" component={App} />
+        </Router>
       </Provider>
     );
 

@@ -1,22 +1,18 @@
 import React from 'react';
 import { render, screen, cleanup } from "@testing-library/react";
 import Footer from "./Footer";
-import configureStore from "redux-mock-store";
-import {Provider} from 'react-redux';
-
-const mockStore = configureStore([])
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 describe('Footer Spec', () => {
   afterEach(cleanup)
 
   it("should render status filter link", function(){
-    let store = mockStore({
-      visibilityFilter: 'SHOW_ALL'
-    })
+    let history = createMemoryHistory();
     render(
-      <Provider store={store}>
+      <Router history={history}>
         <Footer />
-      </Provider>
+      </Router>
     )
 
     expect(screen.getByText('All')).toBeInTheDocument()

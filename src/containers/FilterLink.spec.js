@@ -1,46 +1,23 @@
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
-import configureStore from 'redux-mock-store'
-import { Provider } from "react-redux";
 import FilterLink from "./FilterLink";
+import {Router} from "react-router-dom";
+import { createMemoryHistory } from "history";
 
-const mockStore = configureStore([])
 
 describe('FilterLink Container', () => {
 
   afterEach(cleanup)
 
-  it("should dispatch a action when click a filter link", function(){
-    let store = mockStore([])
+  it("can link to active router", function(){
+    let history = createMemoryHistory();
     render(
-      <Provider store={store}>
-        <FilterLink filter="SHOW_COMPLETED">Completed</FilterLink>
-      </Provider>
+      <Router history={history}>
+        <FilterLink filter="active">Active</FilterLink>
+      </Router>
     )
+    fireEvent.click(screen.getByRole('link', {name: 'Active'}));
 
-    //fireEvent.click(screen.getByText('Completed'))
-    fireEvent.click(screen.getByRole('link', {name: /Completed/i}))
-
-    expect(store.getActions()[0]).to.deep.equal(
-      {type: 'SET_VISIBILITY_FILTER', filter: 'SHOW_COMPLETED'}
-    )
+    expect(history.location.pathname).toBe('/active')
   })
 
-  it("should know if it is active", function(){
-    let store = mockStore({
-      visibilityFilter: 'SHOW_ALL'
-    })
-    store.dispatch = sinon.spy()
-
-    render(
-      <Provider store={store}>
-        <FilterLink filter="SHOW_ALL">All</FilterLink>
-      </Provider>
-    )
-
-    fireEvent.click(screen.getByText('All'))
-    expect(store.dispatch).to.have.been.callCount(0)
-
-    expect(store.getActions()).to.deep.equal([])
-
-  })
 });

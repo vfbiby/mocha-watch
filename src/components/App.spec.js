@@ -15,11 +15,12 @@ describe('App Container', function() {
   beforeEach(() => {
     let store = createStore(todoApp);
     history = createMemoryHistory();
+    history.push('/active');
 
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Route path="/" component={App} />
+          <Route path="/:filter" component={App} />
         </Router>
       </Provider>
     );

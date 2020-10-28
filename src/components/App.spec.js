@@ -20,7 +20,7 @@ describe('App Container', function() {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Route path="/:filter" component={App} />
+          <Route path="/(:filter)" component={App} />
         </Router>
       </Provider>
     );

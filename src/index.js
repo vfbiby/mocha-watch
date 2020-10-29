@@ -1,21 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
 import * as serviceWorker from './serviceWorker';
-import { Provider } from "react-redux";
 import { createStore } from 'redux';
 import todoApp from './reducers';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import Root from './components/Root';
 
 let store = createStore(todoApp);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <Route path="/" component={App} />
-    </Router>
-  </Provider>,
+  <Root store={store}/>,
   document.getElementById('root')
 );
 

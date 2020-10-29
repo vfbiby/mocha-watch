@@ -7,6 +7,7 @@ import todoApp from "../reducers";
 import { Provider } from "react-redux";
 import { Router, Route } from "react-router-dom";
 import { createMemoryHistory } from "history";
+import {VisibilityFilters} from '../actions';
 
 describe('App Container', function() {
 
@@ -20,7 +21,7 @@ describe('App Container', function() {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <Route path="/(:filter)" component={App} />
+          <Route path="/:filter?" component={App} />
         </Router>
       </Provider>
     );
@@ -60,6 +61,6 @@ describe('App Container', function() {
     fireEvent.click(screen.getByText(/Active/i))
 
     expect(screen.queryByText(/go to school/i)).not.toBeInTheDocument()
-    expect(history.location.pathname).toBe('/active')
+    expect(history.location.pathname).toBe(`/${VisibilityFilters.SHOW_ACTIVE}`)
   })
 })

@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import {VisibilityFilters} from '../actions';
 
-const FilterLink = ({ children }) => (
-  <Link
-    to="active"
+const FilterLink = ({ filter, children }) => (
+  <NavLink
+    exact
+    to={ filter === VisibilityFilters.SHOW_ALL ? '/' : `/${filter}` }
   >
     {children}
-  </Link>
+  </NavLink>
 )
 
 export default FilterLink;

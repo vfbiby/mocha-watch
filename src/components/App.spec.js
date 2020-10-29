@@ -58,13 +58,12 @@ describe('App Container', function() {
     fireEvent.change(inputNode, {target: {value: 'Finish screencast'}})
     fireEvent.click(screen.getByText(/Add Todo/i))
     fireEvent.click(screen.getByText(/go to school/i))
-    fireEvent.click(screen.getByText(/Active/i))
 
+    fireEvent.click(screen.getByText(/Active/i))
     expect(screen.queryByText(/go to school/i)).not.toBeInTheDocument()
     expect(history.location.pathname).toBe(`/${VisibilityFilters.SHOW_ACTIVE}`)
 
     fireEvent.click(screen.getByText(/Completed/i))
-
     expect(screen.queryByText(/go to school/i)).toBeInTheDocument()
     expect(history.location.pathname).toBe(`/${VisibilityFilters.SHOW_COMPLETED}`)
   })

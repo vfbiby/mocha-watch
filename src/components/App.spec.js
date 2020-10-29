@@ -62,5 +62,10 @@ describe('App Container', function() {
 
     expect(screen.queryByText(/go to school/i)).not.toBeInTheDocument()
     expect(history.location.pathname).toBe(`/${VisibilityFilters.SHOW_ACTIVE}`)
+
+    fireEvent.click(screen.getByText(/Completed/i))
+
+    expect(screen.queryByText(/go to school/i)).toBeInTheDocument()
+    expect(history.location.pathname).toBe(`/${VisibilityFilters.SHOW_COMPLETED}`)
   })
 })

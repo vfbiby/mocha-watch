@@ -67,4 +67,13 @@ describe('App Container', function() {
     expect(screen.queryByText(/go to school/i)).toBeInTheDocument()
     expect(history.location.pathname).toBe(`/${VisibilityFilters.SHOW_COMPLETED}`)
   })
+
+  it("should show ali-react-table", function(){
+    fireEvent.click(
+      screen.getByRole('link',{name: 'ali-react-table'})
+    );
+
+    expect(history.location.pathname).toBe('/ali-react-table');
+    expect(screen.getByText('确诊')).toBeInTheDocument();
+  })
 })

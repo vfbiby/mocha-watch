@@ -1,19 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux';
-import todoApp from './reducers';
-import Root from './components/Root';
+import ReactDOM from "react-dom";
+import { observable } from 'mobx';
+import observer from "mobx-react";
 
-let store = createStore(todoApp);
+@observer class Counter extends React.Component{
+  @observable count = 0;
+
+  render(){
+    return (
+      <div>
+        Counter: {this.count}<br />
+        <button onClick={this.handleDec}>-</button>
+        <button onClick={this.handleInc}>+</button>
+      </div>
+    )
+  }
+
+  handleDec = () => {
+    this.count++;
+  }
+
+  handleInc = () => {
+    this.count--;
+  }
+}
 
 ReactDOM.render(
-  <Root store={store}/>,
+  <Counter />,
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();

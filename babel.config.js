@@ -30,5 +30,11 @@ module.exports = {
 			}
 		],
 		['module-resolver', { alias: { '@': './src' } }]
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ]
 	]
 }

@@ -18,7 +18,13 @@ const columns = [
 ]
 
 const BaseTableDemo = () => {
-  return <BaseTable dataSource={dataSource} columns={columns}/>
+  return (
+    <div>    
+      <label htmlFor="age">hello there</label>
+      <input type="text" name="age" id="age"/>
+      <BaseTable dataSource={dataSource} columns={columns}/>
+    </div>  
+  )
 }
 
 export default BaseTableDemo;

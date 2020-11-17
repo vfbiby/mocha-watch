@@ -1,9 +1,9 @@
 import React from 'react';
-import {render, getByText, cleanup} from '@testing-library/react';
+import {render, screen, cleanup} from '@testing-library/react';
 import {BaseTable} from 'ali-react-table';
 
 describe('BaseTable', function() {
-  this.afterEach(cleanup);
+  afterEach(cleanup);
   it("should render table", function(){
     const dataSource = [
       { prov: '湖北省', confirmed: 54406, cured: 4793, dead: 1457, t: '2020-02-15 19:52:02' },
@@ -23,6 +23,6 @@ describe('BaseTable', function() {
 
     render(<BaseTable dataSource={dataSource} columns={columns}/>);
 
-    //expect(getByText('确诊')).toBeInTheDocument();
+    expect(screen.getByText('确诊')).toBeInTheDocument();
   })
 });

@@ -16,10 +16,6 @@ module.exports = {
 		// 	}
 		// ],
 		'@babel/plugin-syntax-dynamic-import',
-		'@babel/transform-react-constant-elements',
-		'@babel/transform-react-inline-elements',
-		'transform-react-remove-prop-types',
-		'transform-react-pure-class-to-function',
 		'@babel/transform-runtime',
 		['@babel/plugin-proposal-decorators', { legacy: true }],
 		['@babel/plugin-proposal-class-properties', { loose: true }],
